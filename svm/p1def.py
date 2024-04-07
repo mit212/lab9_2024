@@ -25,7 +25,7 @@ def plottestpoint(point, label = None):
 		plt.plot(point[0],point[1],'b+')
 	else:
 		plt.plot(point[0],point[1],'g')
-with open('data_b.csv',newline = '') as csvfile:
+with open('svm/data_b.csv',newline = '') as csvfile:
 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
 	for row in reader:
 		x.append(float(row[0]))
@@ -39,20 +39,25 @@ if p1d:
 		else:
 			plt.plot(x[i],y[i],'bo')
 
-
 if p1e:
 	for i in range(len(x)):
 		data.append([x[i], y[i]])
 
 	clf = svm.SVC()
-	clf.fit(data,val)
 
-	# with open('data_test.csv',newline = '') as csvfile:
-	# 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
-	# 	for row in reader:
-	# 		x.append(float(row[0]))
-	# 		y.append(float(row[1]))
-	# 		val.append(float(row[2]))
+	# Question 2
+	# TODO: Try changing the values of C and gamma!
+	# clf = svm.SVC(C = 1.0, kernel = 'rbf', gamma = 'scale')
+	
+	# Question 3
+	# TODO: Try changing the kernel!
+	# clf = svm.SVC(kernel = 'poly')
+	
+	# Question 4
+	# TODO: Try changing the polynomial kernel degree!
+	# clf = svm.SVC(kernel = 'poly', degree = 4)
+
+	clf.fit(data,val)
 
 	testpoint1 = [0,0]
 	label1 = clf.predict([testpoint1])

@@ -4,6 +4,7 @@ from tensorflow.keras.models import Sequential # Documentation: https://keras.io
 from tensorflow.keras.utils import to_categorical
 import matplotlib.pyplot as plt
 import numpy as np
+
 # Setup train and test splits
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 print("Training data shape: ", x_train.shape) # (60000, 28, 28) -- 60000 images, each 28x28 pixels
@@ -26,7 +27,8 @@ model.summary()
 
 
 model.compile(optimizer="sgd", loss='categorical_crossentropy', metrics=['accuracy'])
-history = model.fit(x_train, to_categorical(y_train), batch_size=128, epochs=25, verbose=False, validation_split=.1)
+# TODO: Modify the number of epochs here.
+history = model.fit(x_train, to_categorical(y_train), batch_size=128, epochs=5, verbose=False, validation_split=.1)
 loss, accuracy  = model.evaluate(x_test, to_categorical(y_test), verbose=False)
 print(history.history)
 plt.plot(history.history['accuracy'])

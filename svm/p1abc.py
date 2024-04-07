@@ -8,8 +8,8 @@ x = []
 y = []
 val = []
 p1a = True
-p1b = True
-p1c = True
+p1b = False
+p1c = False
 
 def plotpoint(point, label = None):
 	if label == 0:
@@ -26,7 +26,8 @@ def plotpointtest(point, label = None):
 		plt.plot(point[0],point[1],'b+')
 	else:
 		plt.plot(point[0],point[1],'g')
-with open('data_a.csv',newline = '') as csvfile:
+
+with open('svm/data_a.csv',newline = '') as csvfile:
 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
 	for row in reader:
 		x.append(float(row[0]))
@@ -40,19 +41,12 @@ if p1a:
 		else:
 			plt.plot(x[i],y[i],'bo')
 
-
 if p1b:
 	for i in range(len(x)):
 		data.append([x[i], y[i]])
 
 	clf = svm.LinearSVC()
 	clf.fit(data,val)
-
-	# with open('data_test.csv',newline = '') as csvfile:
-	# 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
-	# 	for row in reader:
-	# 		x.append(float(row[0]))
-	# 		y.append(float(row[1]))
 
 	testpoint1 = [2,2]
 	testpoint2 = [-1,3]
@@ -82,5 +76,4 @@ if p1c:
 	#           linewidth=1, facecolors='none', edgecolors='k')
 
 plt.show()
-
 
