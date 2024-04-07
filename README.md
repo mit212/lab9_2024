@@ -18,7 +18,7 @@ Spring 2024[^1]
 
 </details>
 
-In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers on Canvas. If you have any questions, feel free to reach out to the staff on Piazza.
+In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers on Canvas **by April 14 11:59pm**. If you have any questions, feel free to reach out to the staff on Piazza.
 
 ## 1 Software Set Up
 
