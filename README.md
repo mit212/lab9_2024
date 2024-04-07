@@ -3,6 +3,21 @@
 2.12/2.120 Intro to Robotics  
 Spring 2024[^1]
 
+<details>
+  <summary>Table of Contents</summary>
+
+- [1 Software Set Up](#1-software-set-up)
+  - [1.1 Scikit-Learn](#11-scikit-learn)
+  - [1.2 Tensorflow](#12-tensorflow)
+- [2 Support Vector Machine (SVM)](#2-support-vector-machine-svm)
+  - [2.1 Linearly Separable Case](#21-linearly-separable-case)
+  - [2.2 Nonlinear SVM](#22-nonlinear-svm)
+- [3 Neural Network (NN)](#3-neural-network-nn)
+- [4 Convolutional Neural Network (CNN)](#4-convolutional-neural-network-cnn)
+- [5 Submission and Feedback Form](#5-submission-and-feedback-form)
+
+</details>
+
 In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers on Canvas. If you have any questions, feel free to reach out to the staff on Piazza.
 
 ## 1 Software Set Up
@@ -47,9 +62,7 @@ Now, open `p1def.py`. At the top you will notice three boolean variables, `p1d`,
 
 The full definition of the SVC method with its default values is as follows and can be found [here](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html).
 ```
-class sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, 
-        probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, 
-        max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)
+class sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)
 ```
 
 We don't often need to deal with ALL of these values, which is why we start off just using the defaults. In line 47 of the code we simply have:
@@ -74,66 +87,42 @@ Try changing the values of `C` and `gamma`.
 clf = svm.SVC(C = 1.0, kernel = 'rbf', gamma = 'scale')
 ```
 
-Try changing the values of C and gamma and see what happens! Show us some
-screenshots of any notable changes. Start with gamma values ranging from .1-10 and C values
-ranging from .1-100. Feel free to explore other values.
-
 | :question: QUESTION 2 :question:   |
 |:---------------------------------------------------|
-|  |
+|  Try changing the values of C and gamma and see what happens! Show us some screenshots of any notable changes. Start with `gamma` values ranging from `0.1` to `10` and `C` values ranging from `0.1` to `100`. Feel free to explore other values. |
 
-Now, lets try changing the kernel and see what happens. Go to the line of code in the p1e IF
-statement (for me it is line 47) and change it to the following
-clf = svm .SVC ( kernel =’poly ’)
-The following kernels are available for use: ‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’.
+Now, lets try changing the kernel and see what happens. Go to the line of code in the `p1e` IF statement (line 47) and change it to the following
+```
+clf = svm.SVC(kernel = 'poly')
+```
+The following kernels are available for use: 'linear', 'poly', 'rbf', 'sigmoid'.
 
 | :question: QUESTION 3 :question:   |
 |:---------------------------------------------------|
-|  |\
-How well does each kernel appear to classify the data? Show some screenshots of the
-different kernels being used.
-Next, lets just see what happens if we play with the polynomial kernel. By default, it is set to
-degree=3. Lets use a higher degree and see if it helps.
-clf = svm .SVC ( kernel =’poly ’, degree =4)
+| How well does each kernel appear to classify the data? Show some screenshots of the different kernels being used. |
+
+Next, lets just see what happens if we play with the polynomial kernel. By default, it is set to `degree`=3. Let's use a higher degree and see if it helps.
+```
+clf = svm.SVC(kernel = 'poly', degree = 4)
+```
 
 | :question: QUESTION 4 :question:   |
 |:---------------------------------------------------|
-| Does changing the polynomial kernel degree help? Which one appears to be the best?
-Is there a disadvantage to using higher degree polynomial functions? |
+| Does changing the polynomial kernel degree help? Which one appears to be the best? Is there a disadvantage to using higher degree polynomial functions? |
 
 ## 3 Neural Network (NN)
 
-This is the classical ”hello world” example of neural networks used to classify handwritten images
-of numbers to the number that’s written. Run the following command:
+This is the classical "hello world" example of neural networks used to classify handwritten images of numbers to the number that’s written. Run `classifier.py`.
 
-cd nn
-python3 classifier .py
+A window will show up, there are two sets of accuracy over *epochs*, one for the training data and the other for the testing data. As the epoch proceeds, we can see that the accuracies in both the training set and the test set increase as expected. Notice this is an ideal case. Over-fitting could happen if the epoch number is set too high and under-fitting could happen when the number is too low. Go into the source code and give it an epoch number larger than 5.
 
-A window will show up, there are two sets of accuracy over ”epochs”, one for the training data
-and the other for the testing data. As the epoch proceeds, we can see that the accuracies in both
-the training set and the test set increase as expected. Notice this is an ideal case. Over-fitting
-could happen if the epoch number is set too high and under-fitting could happen when the number
-is too low. Go into the source code and give it an epoch number larger than 5.
-Now take a closer look into the code itself. In the previous section we have installed the
-Tensorflow library. It is an open source library developed by Google for convenient and efficient
-deployment of common machine learning techniques. Keras is the neural network library that is
-built on Tensorflow. Some background information: An alternative library is Pytorch, developed
-by Microsoft and Facebook, feel free to implement with both libraries and make a comparison. In
-2.12 we will stick with Tensorflow.
-In this lab we use the MNIST image set, which is a set of handwritten images of numbers that
-are correctly labelled. Each image contains 28 × 28 pixels. In this script, we use 60,000 image to
-train our network and 10,000 to test the network. Several steps to getting the input data to the
-write format. The 28 × 28 pixels are converted to a single array. Then they are fed through the
-net, where the trained y value is the number corresponding to the image.
-Here we use two layers of neurons, with a ’sigmoid’ and a ’softmax’ activation function. There
-are a lot other activation functions, such as ’relu’ and ’tanh’. Give it a try and see how that
-changes the result. Here, we use stochastic gradient decent to find our global minimum. Alternative
-optimizers such as ’adam’ and ’adagrad’ are also included in Keras. A cool gif of their performance
-can be found here: :https://mlfromscratch.com/optimizers-explained/#/
-Eventually, we give each image sample 10 scores based on the output of the last layer of neuron.
-These 10 scores are the probabilities, corresponding to the numbers 0-9, that are evaluated with a
-mathematical technique called cross-entropy. The index with the highest probability is the number
-predicted by the image.
+Now take a closer look into the code itself. In the [previous section](#12-tensorflow) we have installed the Tensorflow library. It is an open source library developed by Google for convenient and efficient deployment of common machine learning techniques. Keras is the neural network library that is built on Tensorflow. Some background information: An alternative library is Pytorch, developed by Microsoft and Facebook, feel free to implement with both libraries and make a comparison. In 2.12 we will stick with Tensorflow.
+
+In this lab we use the MNIST image set, which is a set of handwritten images of numbers that are correctly labelled. Each image contains 28 × 28 pixels. In this script, we use 60,000 image to train our network and 10,000 to test the network. Several steps to getting the input data to the write format. The 28 × 28 pixels are converted to a single array. Then they are fed through the net, where the trained y value is the number corresponding to the image.
+
+Here we use two layers of neurons, with a *sigmoid* and a *softmax* activation function. There are a lot other activation functions, such as *relu* and *tanh*. Give it a try and see how that changes the result. Here, we use stochastic gradient decent to find our global minimum. Alternative optimizers such as *adam* and *adagrad* are also included in Keras. A cool gif of their performance can be found [here](https://mlfromscratch.com/optimizers-explained/).
+
+Eventually, we give each image sample 10 scores based on the output of the last layer of neuron. These 10 scores are the probabilities, corresponding to the numbers 0-9, that are evaluated with a mathematical technique called *cross-entropy*. The index with the highest probability is the number predicted by the image.
 
 | :question: QUESTION 5 :question:   |
 |:---------------------------------------------------|
